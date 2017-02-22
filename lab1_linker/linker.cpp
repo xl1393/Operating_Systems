@@ -1,3 +1,8 @@
+/**********************************
+ * Anthor: Zihao Wang             *
+ * Date: 02-21-2017               *
+ * Email: zw1074@nyu.edu          *
+ **********************************/
 #include <iostream>
 #include <regex>
 #include <string>
