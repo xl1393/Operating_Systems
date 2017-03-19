@@ -4,12 +4,9 @@
 using namespace std;
 
 int main(){
-    ifstream file;
-    file.open("input0", ios::in);
-    string sub;
-    while (file >> sub) {
-        cout << sub << endl;
-    }
-    int a = 10;
-    return 0;
+    double a,b;
+    a = 1.0/3.0;
+    b = 2.0/3.0;
+    printf("%.2lf %.2lf\n", a, b);
+    printf("%.3lf %.3lf\n", a, b);
 }
