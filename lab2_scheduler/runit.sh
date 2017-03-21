@@ -15,7 +15,7 @@ SCHPAR="F L S R2 R5 P2 P5"
 for f in ${INS}; do
 	for s in ${SCHPAR}; do 
 		echo "${SCHED} ${SCHEDARGS} -s${s} input${f} ${RFILE}"
-		${SCHED} -s${s} input${f} ${RFILE} > ${OUTDIR}/output${f}_${s}
+		${SCHED} -v -s${s} input${f} ${RFILE} > ${OUTDIR}/output${f}_${s}
 	done
 done
 
