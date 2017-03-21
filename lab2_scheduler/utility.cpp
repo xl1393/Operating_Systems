@@ -1,8 +1,6 @@
-#include "Utility.h"
+#include "utility.h"
 
-EventBigger::EventBigger(const bool& revparam=false):reverse(revparam) {}
-SJF_queue_comparator::SJF_queue_comparator(const bool& revparam=false):reverse(revparam) {}
-RR_queue_prio_comparator::RR_queue_prio_comparator(const bool& revparam=false):reverse(revparam) {}
+EventBigger::EventBigger(const bool& revparam):reverse(revparam) {}
 
 bool EventBigger::operator() (const Event& A, const Event& B) {
     if (A.time_stamp !=  B.time_stamp) {
@@ -11,12 +9,28 @@ bool EventBigger::operator() (const Event& A, const Event& B) {
     return A.gene_order > B.gene_order;
 }
 
-bool SJF_queue_comparator::operator() (Process* A, Process* B) {
+bool SJF_queue_comparator(Process* A, Process* B) {
     return A->rem_time < B->rem_time;
 }
 
-bool queue_prio_comparator::operator() (Process* A, Process* B) {
+bool queue_prio_comparator(Process* A, Process* B) {
     return A->dynamic_prio > B->dynamic_prio;
+}
+
+int add_CPU_time(const int& init, const Process& p) {
+    return init + p.TC;
+}
+
+int add_IO_time(const int& init, const Process& p) {
+    return init + p.IT;
+}
+
+int add_Turnaround_time(const int& init, const Process& p) {
+    return init + p.TT;
+}
+
+int add_CPU_wait(const int& init, const Process& p) {
+    return init + p.CW;
 }
 
 string expand_4_digit(int num) {

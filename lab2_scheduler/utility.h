@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 #include "Event.h"
-#incldue "Process.h"
+#include "Process.h"
 using namespace std;
 
 class EventBigger{
@@ -15,21 +15,17 @@ public:
     bool operator() (const Event& A, const Event& B);
 };
 
-class SJF_queue_comparator{
-    bool reverse;
-public:
-    SJF_queue_comparator(const bool& revparam=false);
+bool SJF_queue_comparator(Process* A, Process* B);
 
-    bool operator() (Process* A, Process* B);
-};
+bool queue_prio_comparator(Process* A, Process* B);
 
-class queue_prio_comparator{
-    bool reverse;
-public:
-    queue_prio_comparator(const bool& revparam=false);
+int add_CPU_time(const int& init, const Process& p);
 
-    bool operator() (Process* A, Process* B);
-};
+int add_IO_time(const int& init, const Process& p);
+
+int add_Turnaround_time(const int& init, const Process& p);
+
+int add_CPU_wait(const int& init, const Process& p);
 
 string expand_4_digit(int num);
 #endif

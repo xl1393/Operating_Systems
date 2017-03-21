@@ -24,7 +24,7 @@ class Process {
         int FT; // Finish Time
         int TT; // Turnaround Time
         int IT; // I/O Time
-        int CW; // CPU Waiting Time
+        int CW=0; // CPU Waiting Time
 
         // Constructor
         Process(int _AT, int _TC, int _CB, int _IO, int _PID, int _PRI, int _REMTIME);

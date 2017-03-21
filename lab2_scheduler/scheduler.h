@@ -12,35 +12,35 @@ class Scheduler {
         // Constructor
         Scheduler();
         bool is_idle();
-        virtual Process* pick_process(vector<Process*>& ready_queue) = 0;
+        virtual Process* pick_process(vector<Process*>& ready_queue, vector<Process*>& expired_queue) = 0;
 };
 
-class FCFS_Sched: public Schduler {
+class FCFS_Sched: public Scheduler {
     public:
         
-        virtual Process* pick_process(vector<Process*>& ready_queue);
-}
+        virtual Process* pick_process(vector<Process*>& ready_queue, vector<Process*>& expired_queue);
+};
 
-class LCFS_Sched: public Schduler {
+class LCFS_Sched: public Scheduler {
     public:
         
-        virtual Process* pick_process(vector<Process*>& ready_queue);
-}
+        virtual Process* pick_process(vector<Process*>& ready_queue, vector<Process*>& expired_queue);
+};
 
-class SJF_Sched: public Schduler {
+class SJF_Sched: public Scheduler {
     public:
         
-        virtual Process* pick_process(vector<Process*>& ready_queue);
-}
+        virtual Process* pick_process(vector<Process*>& ready_queue, vector<Process*>& expired_queue);
+};
 
-class RR_Sched: public Schduler {
+class RR_Sched: public Scheduler {
     public:
         
-        virtual Process* pick_process(vector<Process*>& ready_queue);
-}
+        virtual Process* pick_process(vector<Process*>& ready_queue, vector<Process*>& expired_queue);
+};
 
-class PRIO_Sched: public Schduler {
+class PRIO_Sched: public Scheduler {
     public:
         
-        virtual Process* pick_process(vector<Process*>& ready_queue);
-}
+        virtual Process* pick_process(vector<Process*>& ready_queue, vector<Process*>& expired_queue);
+};
