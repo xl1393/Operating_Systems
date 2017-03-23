@@ -1,7 +1,11 @@
 # Scheduler
 A realization for five classical scheduler algorithm.
 
-To run it, just simply use
+## Requirement
+C++ version 4.8
+
+## Run and Compile
+To compile it, just simply use
 > $ make
 
 Then you will see there is a `sched` file. To use the excutive file, just type
