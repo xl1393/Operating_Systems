@@ -1,0 +1,2 @@
+g++ -static-libstdc++ -std=c++11 -o mmu replace.cpp simulator.cpp main.cpp
+makefile:2: recipe for target 'mmu' failed
