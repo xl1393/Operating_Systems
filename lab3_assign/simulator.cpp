@@ -65,7 +65,7 @@ void simulator::parser_instr(string s) {
 
 void simulator::do_instr() {
     // print inst
-    if (opt['O']) cout << "==> instr: " << read << " " << page_i << endl;
+    if (opt['O']) cout << "==> inst: " << read << " " << page_i << endl;
     if (pt[page_i].PRESENT == 0) {
         if(!replacer->isfull()) {
             if (opt['O']) printf("%d: ZERO\t\t%d\n", instr_count, (int)replacer->frameinfo.size());
