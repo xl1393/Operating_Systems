@@ -85,7 +85,7 @@ IO* SCAN::next_IO() {
     if (direct > 0) { // Means it is up
         int current_pos = IO_algo::Get_position();
         for (int i = 0; i < SCAN_vector.size(); i++) {
-            if (SCAN_vector[i]->track > current_pos) {
+            if (SCAN_vector[i]->track >= current_pos) {
                 delete_id = i;
                 return SCAN_vector[i];
             }
@@ -97,7 +97,7 @@ IO* SCAN::next_IO() {
     if (direct < 0) {
         int current_pos = IO_algo::Get_position();
         for (int i = SCAN_vector.size() - 1; i >= 0; i--) {
-            if (SCAN_vector[i]->track < current_pos) {
+            if (SCAN_vector[i]->track <= current_pos) {
                 delete_id = i;
                 return SCAN_vector[i];
             }
@@ -136,7 +136,7 @@ void CSCAN::add_IO(IO& entry_ptr) {
 IO* CSCAN::next_IO() {
     int current_pos = IO_algo::Get_position();
     for (int i = 0; i < CSCAN_vector.size(); i++) {
-        if (CSCAN_vector[i]->track > current_pos) {
+        if (CSCAN_vector[i]->track >= current_pos) {
             delete_id = i;
             return CSCAN_vector[i];
         }
@@ -178,7 +178,7 @@ IO* FSCAN::next_IO() {
     if (direct > 0) { // Means it is up
         int current_pos = IO_algo::Get_position();
         for (int i = 0; i < queue_1.size(); i++) {
-            if (queue_1[i]->track > current_pos) {
+            if (queue_1[i]->track >= current_pos) {
                 delete_id = i;
                 return queue_1[i];
             }
@@ -190,7 +190,7 @@ IO* FSCAN::next_IO() {
     if (direct < 0) {
         int current_pos = IO_algo::Get_position();
         for (int i = queue_1.size() - 1; i >= 0; i--) {
-            if (queue_1[i]->track < current_pos) {
+            if (queue_1[i]->track <= current_pos) {
                 delete_id = i;
                 return queue_1[i];
             }

@@ -41,35 +41,66 @@ void simulator::sim_all() {
             IO_OP[id].movement = IO_OP[id].track;
             IO_OP[id].issue_time = current_time;
             IO_OP[id].finish_time = finish_time;
+            IO_tmp = &(IO_OP[id]);
+            // printf("%d:\t%d add %d\n", current_time, IO_OP[id].OP, IO_OP[id].track);
+            // printf("%d:\t%d issue %d %d\n", current_time, IO_OP[id].OP, IO_OP[id].track, 0);
             id++;
         }
         else {
             if(IO_OP[id].time_step < finish_time) {
                 // Just add IO to buffer
                 current_time = IO_OP[id].time_step;
+                // printf("%d:\t%d add %d\n", current_time, IO_OP[id].OP, IO_OP[id].track);
                 ALGO->add_IO(IO_OP[id]);
                 id++;
+            }
+            else if (IO_OP[id].time_step == finish_time) {
+                // first add to IO queue
+                current_time = IO_OP[id].time_step;
+                // printf("%d:\t%d add %d\n", current_time, IO_OP[id].OP, IO_OP[id].track);
+                ALGO->add_IO(IO_OP[id]);
+                id++;
+                // Then get next one
+                ALGO->Update_position(current_track);
+                IO* candidate = ALGO->next_IO();
+                current_time = finish_time;
+                // printf("%d:\t%d finish %d\n", current_time, IO_tmp->OP, IO_tmp->finish_time - IO_tmp->time_step);
+                // printf("%d:\t%d issue %d %d\n", current_time, candidate->OP, candidate->track, current_track);
+                candidate->issue_time = current_time;
+                candidate->movement = abs(candidate->track - current_track);
+                candidate->finish_time = current_time + candidate->movement;
+                finish_time = candidate->finish_time;
+                current_track = candidate->track;
+                IO_tmp = candidate;
+                ALGO->issue();
             }
             else {
                 if (ALGO->finish()) {
                     // do as the first time
+                    // printf("%d:\t%d finish %d\n", finish_time, IO_tmp->OP, IO_tmp->finish_time - IO_tmp->time_step);
                     current_time = IO_OP[id].time_step;
                     IO_OP[id].movement = abs(IO_OP[id].track - current_track);
                     IO_OP[id].finish_time = current_time + IO_OP[id].movement;
                     finish_time = IO_OP[id].finish_time;
+                    // printf("%d:\t%d add %d\n", current_time, IO_OP[id].OP, IO_OP[id].track);
+                    // printf("%d:\t%d issue %d %d\n", current_time, IO_OP[id].OP, IO_OP[id].track, current_track);
                     current_track = IO_OP[id].track;
                     IO_OP[id].issue_time = current_time;
+                    IO_tmp = &(IO_OP[id]);
                     id++;
                 }
                 else {
                     ALGO->Update_position(current_track);
                     IO* candidate = ALGO->next_IO();
                     current_time = finish_time;
+                    // printf("%d:\t%d finish %d\n", current_time, IO_tmp->OP, IO_tmp->finish_time - IO_tmp->time_step);
+                    // printf("%d:\t%d issue %d %d\n", current_time, candidate->OP, candidate->track, current_track);
                     candidate->issue_time = current_time;
                     candidate->movement = abs(candidate->track - current_track);
                     candidate->finish_time = current_time + candidate->movement;
                     finish_time = candidate->finish_time;
                     current_track = candidate->track;
+                    IO_tmp = candidate;
                     ALGO->issue();
                 }
             }
@@ -79,11 +110,14 @@ void simulator::sim_all() {
         ALGO->Update_position(current_track);
         IO* candidate = ALGO->next_IO();
         current_time = finish_time;
+        // printf("%d:\t%d finish %d\n", current_time, IO_tmp->OP, IO_tmp->finish_time - IO_tmp->time_step);
+        // printf("%d:\t%d issue %d %d\n", current_time, candidate->OP, candidate->track, current_track);
         candidate->issue_time = current_time;
         candidate->movement = abs(candidate->track - current_track);
         candidate->finish_time = current_time + candidate->movement;
         finish_time = candidate->finish_time;
         current_track = candidate->track;
+        IO_tmp = candidate;
         ALGO->issue();
     }
 }

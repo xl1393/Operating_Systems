@@ -14,6 +14,7 @@ using namespace std;
 class simulator {
 private:
     IO_algo* ALGO;
+    IO* IO_tmp;
     vector<IO> IO_OP;
     int current_time; // the end of the current process time
     int finish_time;
