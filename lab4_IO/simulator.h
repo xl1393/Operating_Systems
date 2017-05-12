@@ -23,8 +23,8 @@ private:
 
 public:
     simulator(char algo, const vector<string> s);
-    void parser_line(string s);
-    bool take_action(bool just_do_it);
+//     void parser_line(string s);
+//     bool take_action(bool just_do_it);
     void sim_all();
     void print_sum();
 };
